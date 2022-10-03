@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, FormLabel, IconButton, InputAdornment, Radio, RadioGroup, TextField } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import styles from './TodoListPage.scss';
 import { TodoEntry } from '../TodoEntry/TodoEntry';
 import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';
 import { TodoItem, TodoList } from '../../shared/models';
-import { runInAction } from 'mobx';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export const TodoListPage = observer(() => {
   const { id } = useParams();
@@ -60,6 +60,15 @@ export const TodoListPage = observer(() => {
                 size="small"
                 value={textFilter}
                 onChange={event => setTextFilter(event.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton size="small" onClick={() => setTextFilter('')} edge="end">
+                        <HighlightOffIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <FormControl>
                 <FormLabel id="filter-by-status-radio-group-label ">Filter by status</FormLabel>
