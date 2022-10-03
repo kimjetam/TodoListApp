@@ -31,12 +31,8 @@ export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubm
   });
 
   useEffect(() => {
-    if (open === false) handleReset(undefined);
+    if (open === false) handleReset(null);
   }, [open]);
-
-  useEffect(() => {
-    console.log(isValid, dirty);
-  });
 
   return (
     <Dialog onClose={handleClose} open={open} style={{ marginBottom: 400 }}>

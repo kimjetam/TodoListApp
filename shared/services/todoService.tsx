@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { runInAction } from 'mobx';
-import { TodoItem } from '../../models';
+import { TodoItem, TodoList } from '../../models';
 
 export class TodoService {
   private baseUrl: string = '';

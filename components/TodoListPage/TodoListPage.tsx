@@ -69,9 +69,9 @@ export const TodoListPage = observer(() => {
     if (isValid) {
       if (isOnCreatePage) {
         navigate('/');
-        await todoStore.createNewTodoList(title);
+        todoStore.createNewTodoList(title);
       } else {
-        await todoStore.updateTodoTitle(title, id!);
+        todoStore.updateTodoTitle(title, id!);
       }
     }
     setIsEditingTitle(false);
@@ -80,11 +80,11 @@ export const TodoListPage = observer(() => {
   const menuId = 'primary-todolist-menu';
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (): void => {
     setAnchorEl(null);
   };
 
-  const renderTodos = () => {
+  const renderTodos = (): JSX.Element[] | JSX.Element | null => {
     if (todoList === undefined) {
       return null;
     }
