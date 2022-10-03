@@ -5,7 +5,7 @@ import { useTodoStore } from '../../shared/TodoStoreProvider';
 import styles from './Dashboard.scss';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { IconButton } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -24,24 +24,24 @@ export const Dashboard = observer(() => {
     <div className={styles.container}>
       <span>My todo lists: </span>
       {todoLists && todoLists.length > 0 ? (
-        <div className={styles.todoLists}>
+        <Grid container spacing={2} className={styles.todoLists}>
           {todoLists!.map(todoList => (
-            <Card
-              sx={{ maxWidth: 500, minWidth: 160 }}
-              className={styles.todoCard}
-              onClick={() => navigate(`/todos/${todoList.id}`)}
-              key={`${todoList.id}`}
-            >
-              <CardContent className={styles.content}>
-                <span className={styles.title}>{todoList.title}</span>
-                <IconButton className={styles.delete} onClick={event => deleteTodoList(todoList.id, event)}>
-                  <DeleteIcon />
-                </IconButton>
-              </CardContent>
-            </Card>
+            <Grid item xs={12} sm={4}>
+              <Card className={styles.todoCard} onClick={() => navigate(`/todos/${todoList.id}`)} key={`${todoList.id}`}>
+                <CardContent className={styles.content}>
+                  <span className={styles.title}>{todoList.title}</span>
+                  <IconButton className={styles.delete} onClick={event => deleteTodoList(todoList.id, event)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
-        </div>
+        </Grid>
       ) : (
+        // <div className={styles.todoLists}>
+
+        // </div>
         <span>no todo lists</span>
       )}
     </div>

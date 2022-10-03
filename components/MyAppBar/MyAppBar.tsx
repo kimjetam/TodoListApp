@@ -95,7 +95,7 @@ export const MyAppBar = observer(() => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
+      <AppBar position="static">
         <Toolbar>
           {location.pathname === '/' && (
             <>

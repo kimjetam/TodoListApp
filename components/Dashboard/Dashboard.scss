@@ -6,10 +6,6 @@
   .todoLists {
     margin-top: 10px;
     padding-bottom: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    overflow-y: auto;
 
     .todoCard {
       padding: 10px;

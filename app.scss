@@ -1,9 +1,11 @@
 @import '/shared/styles/palette';
 
 .container {
-  border-radius: 20px;
-  min-height: 500px;
+  min-height: 600px;
   background-color: $LightGrey;
   padding: 0 !important;
-  height: 100vh;
+
+  @media (hover: none) {
+    height: 100vh;
+  }
 }
