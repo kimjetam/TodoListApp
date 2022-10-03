@@ -7,6 +7,8 @@ This is an simple app built in React to create todo lists. It supports these use
 - view todo lists at home page
 - filter todo items by text and by status properties
 
+This app was also tested on Iphone 12 and ran pretty good.
+
 ## Install
 
 clone the repo and then run these commands in the root directory
