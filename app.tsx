@@ -6,7 +6,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { TodoStore } from './stores/todoStore';
 import { TodoStoreProvider } from './shared/TodoStoreProvider';
 import { Container } from '@mui/material';
-import styles from './App.scss';
+import styles from 'App.scss';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import DateFnsAdapter from '@date-io/moment';
 import { MyAppBar } from './components/MyAppBar/MyAppBar';
