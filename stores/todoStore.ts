@@ -29,15 +29,21 @@ export class TodoStore {
         this.init();
     }
 
-    private async init(){
-        this._loading = true; 
+    private _setLoadingProp(val: boolean): void {
+        runInAction(() => this._loading = val);
+    }
+
+    private async init() {
+        this._setLoadingProp(true); 
         const todos = await this._todoService.getAllTodos();
         
-        if(todos !== undefined) {
-            this._todoLists = todos;
-            this._todoLists?.forEach(todoList => todoList.todos.forEach(todo => todo.deadline = new Date(todo.deadline!)))
+        if (todos !== undefined) {
+            runInAction(() => {
+                this._todoLists = todos;
+                this._todoLists?.forEach(todoList => todoList.todos.forEach(todo => todo.deadline = new Date(todo.deadline!)))
+            });
         }
-        this._loading = false; 
+        this._setLoadingProp(false); 
     }
 
     public getTodoList(id: string) {
@@ -45,22 +51,21 @@ export class TodoStore {
     } 
 
     public async deleteTodoList(todoListId: string) {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         const removeIdx = this._todoLists?.findIndex(todoList => todoList.id === todoListId);
-        console.log(removeIdx);
         if(removeIdx !== undefined && removeIdx !== -1 ) {
             runInAction(() => {this._todoLists?.splice(removeIdx, 1)});
             await this._todoService.deleteTodoList(todoListId);
         }
-        this._loading = false; 
+        this._setLoadingProp(false); 
     }
 
     public async createNewTodoList(title: string): Promise<string> {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         const res = await this._todoService.createEmptyTodoList(title);
 
         runInAction(() => {this._todoLists?.push(res.data)});
-        this._loading = false; 
+        this._setLoadingProp(false); 
 
         return res.data.id as string;
     }
@@ -71,39 +76,39 @@ export class TodoStore {
             const todoList = this.getTodoList(id);
             if (todoList) todoList.title = title;
         })
-        this._loading = true; 
-        const response = await this._todoService.updateTodoTitle(title, id);
-        this._loading = false;
+        this._setLoadingProp(true); 
+        await this._todoService.updateTodoTitle(title, id);
+        this._setLoadingProp(false); 
     }
 
     public async updateTodoItem(todoListId: string, todoItemIdx: number, todoItemNew: TodoItem): Promise<void> {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         runInAction(() => this._todoLists!.find(x => x.id === todoListId)!.todos[todoItemIdx] = todoItemNew);
 
         await this._todoService.updateTodosForTodoList(todoListId, this.getTodoList(todoListId)?.todos!);
-        this._loading = false;
+        this._setLoadingProp(false); 
     }
 
     public async addTodoItem(todoListId: string, todoItemNew: TodoItem): Promise<void> {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         runInAction(() => this._todoLists!.find(x => x.id === todoListId)!.todos.push(todoItemNew));
 
         await this._todoService.updateTodosForTodoList(todoListId, this.getTodoList(todoListId)?.todos!);
-        this._loading = false;
+        this._setLoadingProp(false); 
     }
 
     public async deleteTodoItem(todoListId: string, todoItemIdx: number): Promise<void> {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         runInAction(() => this._todoLists!.find(x => x.id === todoListId)!.todos.splice(todoItemIdx, 1));
         await this._todoService.updateTodosForTodoList(todoListId, this.getTodoList(todoListId)?.todos || []);
-        this._loading = false;
+        this._setLoadingProp(false); 
     }
 
     public async updateTodoItemStatus(todoListId: string, todoItemIdx: number, isDone: boolean): Promise<void> {
-        this._loading = true; 
+        this._setLoadingProp(true); 
         runInAction(() => this._todoLists!.find(x => x.id === todoListId)!.todos[todoItemIdx].isDone = isDone );
         await this._todoService.updateTodosForTodoList(todoListId, this.getTodoList(todoListId)?.todos!);
-        this._loading = false;
+        this._setLoadingProp(false); 
     }
 
 

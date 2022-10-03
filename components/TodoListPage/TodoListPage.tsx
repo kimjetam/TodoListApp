@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTodoStore } from '../../shared/TodoStoreProvider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import styles from './TodoListPage.scss';
@@ -14,8 +14,7 @@ export const TodoListPage = observer(() => {
   const { id } = useParams();
   const todoStore = useTodoStore();
 
-  let todoList: TodoList | undefined;
-  runInAction(() => (todoList = todoStore.getTodoList(id!)));
+  const todoList: TodoList | undefined = todoStore.getTodoList(id!);
 
   const isOnCreatePage = !id;
   const [openDialog, setOpenDialog] = React.useState(false);

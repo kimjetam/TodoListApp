@@ -6,7 +6,6 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
 import { useTodoStore } from '../../shared/TodoStoreProvider';
 import { useLocation, useNavigate, useParams, useMatch } from 'react-router-dom';
 import styles from './MyAppBar.scss';
@@ -27,12 +26,7 @@ export const MyAppBar = observer(() => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  let todoList: TodoList | undefined;
-  runInAction(() => {
-    if (id) {
-      todoList = todoStore.getTodoList(id);
-    }
-  });
+  let todoList: TodoList | undefined = todoStore.getTodoList(id!);
 
   const handleMoreOptionsOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,8 +51,9 @@ export const MyAppBar = observer(() => {
   });
 
   const deleteList = async () => {
+    handleMenuClose();
     if (id) {
-      await todoStore.deleteTodoList(id!);
+      todoStore.deleteTodoList(id!);
       navigate('/');
     }
   };
