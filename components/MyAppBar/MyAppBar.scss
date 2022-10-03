@@ -1,0 +1,23 @@
+@import '../../shared/styles/palette';
+
+.editTitleField {
+  color: $White !important;
+  ::before {
+    border-bottom-color: $White !important;
+  }
+
+  label {
+    color: $White !important;
+  }
+
+  input {
+    color: $White !important;
+  }
+}
+.backButton {
+  margin-right: 10px !important;
+  svg {
+    position: relative;
+    left: 5px;
+  }
+}

@@ -1,7 +1,7 @@
 import { Card, CardContent, Checkbox, Grid, IconButton, TextareaAutosize, TextField } from '@mui/material';
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
-import { TodoItem } from '../../models';
+import { TodoItem } from '../../shared/models';
 import styles from './TodoEntry.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';

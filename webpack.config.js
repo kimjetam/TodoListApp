@@ -58,6 +58,11 @@ module.exports = (_, argv) => {
         template: './index.html'
       }),
       new MiniCssExtractPlugin()
-    ]
+    ],
+    externals: {
+      Config: {
+        apiUrl: 'https://6335ec4d65d1e8ef266595b3.mockapi.io/api/'
+      }
+    }
   };
 };

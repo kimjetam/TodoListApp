@@ -3,10 +3,10 @@ import { MobileDatePicker } from '@mui/x-date-pickers';
 import { useFormik } from 'formik';
 import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
-import { TodoItem } from '../../models';
+import { TodoItem } from '../../shared/models';
 import Grid from '@mui/material/Grid';
 import styles from './UpsertTodoEntryDialog.scss';
-import { todoItemValidationSchema } from '../../validationSchemas';
+import { todoItemValidationSchema } from '../../shared/validationSchemas';
 
 interface UpsertTodoEntryDialogProps {
   open: boolean;

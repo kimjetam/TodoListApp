@@ -5,10 +5,8 @@ import { useTodoStore } from '../../shared/TodoStoreProvider';
 import styles from './Dashboard.scss';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import LinearProgress from '@mui/material/LinearProgress';
+import { IconButton } from '@mui/material';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Dashboard = observer(() => {
@@ -23,48 +21,29 @@ export const Dashboard = observer(() => {
   };
 
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Home
-            </Typography>
-
-            <IconButton size="large" edge="end" color="inherit" onClick={() => navigate(`/todos`)}>
-              <AddIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        {todoStore.loading && <LinearProgress />}
-      </Box>
-
-      <div className={styles.container}>
-        <span>My todo lists: </span>
-        {todoLists && todoLists.length > 0 ? (
-          <div className={styles.todoLists}>
-            <>
-              {todoLists!.map(todoList => (
-                <Card
-                  sx={{ maxWidth: 500, minWidth: 160 }}
-                  className={styles.todoCard}
-                  onClick={() => navigate(`/todos/${todoList.id}`)}
-                  key={`${todoList.id}`}
-                >
-                  <CardContent className={styles.content}>
-                    <span className={styles.title}>{todoList.title}</span>
-                    <IconButton className={styles.delete} onClick={event => deleteTodoList(todoList.id, event)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </CardContent>
-                </Card>
-              ))}
-            </>
-          </div>
-        ) : (
-          <span>no todo lists</span>
-        )}
-      </div>
-    </>
+    <div className={styles.container}>
+      <span>My todo lists: </span>
+      {todoLists && todoLists.length > 0 ? (
+        <div className={styles.todoLists}>
+          {todoLists!.map(todoList => (
+            <Card
+              sx={{ maxWidth: 500, minWidth: 160 }}
+              className={styles.todoCard}
+              onClick={() => navigate(`/todos/${todoList.id}`)}
+              key={`${todoList.id}`}
+            >
+              <CardContent className={styles.content}>
+                <span className={styles.title}>{todoList.title}</span>
+                <IconButton className={styles.delete} onClick={event => deleteTodoList(todoList.id, event)}>
+                  <DeleteIcon />
+                </IconButton>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <span>no todo lists</span>
+      )}
+    </div>
   );
 });

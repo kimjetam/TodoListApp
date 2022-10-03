@@ -1,5 +1,5 @@
 import { AnnotationsMap, configure, makeAutoObservable, runInAction } from "mobx";
-import { TodoItem, TodoList } from "../models";
+import { TodoItem, TodoList } from "../shared/models";
 import { TodoService } from "../shared/services/todoService";
 
 export class TodoStore {
@@ -32,11 +32,12 @@ export class TodoStore {
     private async init(){
         this._loading = true; 
         const todos = await this._todoService.getAllTodos();
-        this._loading = false; 
+        
         if(todos !== undefined) {
             this._todoLists = todos;
             this._todoLists?.forEach(todoList => todoList.todos.forEach(todo => todo.deadline = new Date(todo.deadline!)))
         }
+        this._loading = false; 
     }
 
     public getTodoList(id: string) {

@@ -1,87 +1,30 @@
-import {
-  AppBar,
-  Box,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Menu,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  TextField,
-  Toolbar,
-  Typography
-} from '@mui/material';
+import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
 import { observer } from 'mobx-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTodoStore } from '../../shared/TodoStoreProvider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import styles from './TodoListPage.scss';
-import CheckIcon from '@mui/icons-material/Check';
 import { TodoEntry } from '../TodoEntry/TodoEntry';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';
-import { TodoItem, TodoList } from '../../models';
-import { useFormik } from 'formik';
+import { TodoItem, TodoList } from '../../shared/models';
 import { runInAction } from 'mobx';
-import { todoListValidationSchema } from '../../validationSchemas';
-import LinearProgress from '@mui/material/LinearProgress';
 
 export const TodoListPage = observer(() => {
   const { id } = useParams();
   const todoStore = useTodoStore();
-  const navigate = useNavigate();
 
   let todoList: TodoList | undefined;
   runInAction(() => (todoList = todoStore.getTodoList(id!)));
 
   const isOnCreatePage = !id;
-  const [isEditingTitle, setIsEditingTitle] = useState(id === undefined);
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const { values, errors, handleSubmit, handleChange, dirty, isValid, handleBlur } = useFormik({
-    initialValues: { title: todoList?.title || '' },
-    onSubmit: () => saveNewTodoTitle(values.title),
-    validationSchema: todoListValidationSchema
-  });
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   const [filterByStatus, setFilterByStatus] = React.useState('all');
   const [textFilter, setTextFilter] = React.useState('');
 
-  const handleMoreOptionsOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleAddTodoSubmit = (todoItemNew: TodoItem) => {
     todoStore.addTodoItem(id!, todoItemNew);
-  };
-
-  const deleteList = async () => {
-    await todoStore.deleteTodoList(id!);
-    navigate('/');
-  };
-
-  const saveNewTodoTitle = async (title: string) => {
-    if (isValid) {
-      if (isOnCreatePage) {
-        navigate('/');
-        todoStore.createNewTodoList(title);
-      } else {
-        todoStore.updateTodoTitle(title, id!);
-      }
-    }
-    setIsEditingTitle(false);
-  };
-
-  const menuId = 'primary-todolist-menu';
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleMenuClose = (): void => {
-    setAnchorEl(null);
   };
 
   const renderTodos = (): JSX.Element[] | JSX.Element | null => {
@@ -106,77 +49,8 @@ export const TodoListPage = observer(() => {
     );
   };
 
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem
-        onClick={() => {
-          setIsEditingTitle(true);
-          handleMenuClose();
-        }}
-      >
-        Edit title
-      </MenuItem>
-      <MenuItem onClick={deleteList}>Delete</MenuItem>
-    </Menu>
-  );
-
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={styles.backButton} size="large" color="inherit" onClick={() => navigate('/')}>
-              <ArrowBackIosIcon />
-            </IconButton>
-
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {isEditingTitle ? (
-                <form onSubmit={handleSubmit}>
-                  <TextField
-                    variant="filled"
-                    id="title"
-                    size="small"
-                    label="title"
-                    className={styles.editTitleField}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.title}
-                    error={errors.title !== undefined}
-                    helperText={errors.title}
-                  />
-                  <IconButton color="inherit" type="submit" disabled={!isValid || !dirty}>
-                    <CheckIcon />
-                  </IconButton>
-                </form>
-              ) : (
-                <>{todoList?.title}</>
-              )}
-            </Typography>
-            {!isOnCreatePage && (
-              <IconButton size="large" aria-label="display more actions" edge="end" color="inherit" onClick={handleMoreOptionsOpen}>
-                <MoreVertIcon />
-              </IconButton>
-            )}
-          </Toolbar>
-        </AppBar>
-        {todoStore.loading && <LinearProgress />}
-        {renderMenu}
-      </Box>
-
       <div className={styles.container}>
         {todoList && todoList.todos && todoList.todos.length > 0 ? (
           <>
@@ -212,15 +86,15 @@ export const TodoListPage = observer(() => {
         )}
 
         {!isOnCreatePage && (
-          <IconButton onClick={() => setOpen(true)}>
+          <IconButton onClick={() => setOpenDialog(true)}>
             <AddCircleIcon></AddCircleIcon>
           </IconButton>
         )}
       </div>
 
       <UpsertTodoEntryDialog
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
         todoItem={{ deadline: null, description: '', isDone: false, title: '' } as TodoItem}
         onSubmit={handleAddTodoSubmit}
       />
