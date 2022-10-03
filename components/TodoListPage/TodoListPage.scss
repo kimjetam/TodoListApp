@@ -1,0 +1,42 @@
+@import '../../shared/styles/palette';
+
+.container {
+  margin: 20px;
+
+  .filterGroup {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .scrollable {
+    overflow-y: auto;
+    max-height: 400px;
+    padding-right: 10px;
+  }
+}
+
+.backButton {
+  margin-right: 10px !important;
+  svg {
+    position: relative;
+    left: 5px;
+  }
+}
+
+.editTitleField {
+  color: $White !important;
+  ::before {
+    border-bottom-color: $White !important;
+  }
+
+  label {
+    color: $White !important;
+  }
+
+  input {
+    color: $White !important;
+  }
+}

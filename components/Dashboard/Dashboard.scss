@@ -1,0 +1,19 @@
+@import '../../shared/styles/palette';
+
+.container {
+  margin: 20px;
+  .todoLists {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: auto;
+
+    .todoCard {
+      &:hover {
+        cursor: pointer;
+        background-color: $LightBlue;
+      }
+    }
+  }
+}

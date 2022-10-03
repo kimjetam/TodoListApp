@@ -1,0 +1,56 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["airbnb", "airbnb-typescript", "plugin:import/typescript", "plugin:mobx/recommended", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "rules": {
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "mobx/no-anonymous-observer": "off",
+    "react/destructuring-assignment": "off",
+    "no-prototype-builtins": "off",
+    "prefer-destructuring": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/no-danger": "off",
+    "no-return-assign": "warn",
+    "no-param-reassign": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
+    "jsx-a11y/anchor-has-content": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "@typescript-eslint/no-use-before-define": "off",
+    "no-use-before-define": "off",
+    "import/no-extraneous-dependencies": ["warn", { "devDependencies": true }],
+    "react/no-array-index-key": "warn",
+    "import/no-cycle": "off",
+    "class-methods-use-this": "warn",
+    "no-underscore-dangle": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    }
+  ]
+}

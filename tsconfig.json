@@ -1,0 +1,28 @@
+{
+  "include": ["./"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "jsx": "react",
+    "sourceMap": true,
+    "lib": ["es2017", "dom"],
+    "allowJs": false,
+    // "types": ["webpack-env"],
+    "useDefineForClassFields": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+    "removeComments": true,
+    "noImplicitThis": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": false,
+    "strictNullChecks": true
+  },
+  "exclude": ["bin", "obj", "node_modules"]
+}
