@@ -10,7 +10,6 @@ export interface ProviderProps extends IValueMap {
 const StoreContext = createContext<IValueMap>({});
 StoreContext.displayName = 'StoreContext';
 
-// eslint-disable-next-line mobx/missing-observer
 export function TodoStoreProvider(props: ProviderProps) {
   const { children, ...stores } = props;
 

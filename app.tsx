@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { TodoListPage } from './components/TodoListPage/TodoListPage';
 import { Dashboard } from './components/Dashboard/Dashboard';
