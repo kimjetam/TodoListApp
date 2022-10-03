@@ -28,6 +28,7 @@ import { TodoItem, TodoList } from '../../models';
 import { useFormik } from 'formik';
 import { runInAction } from 'mobx';
 import { todoListValidationSchema } from '../../validationSchemas';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export const TodoListPage = observer(() => {
   const { id } = useParams();
@@ -65,10 +66,10 @@ export const TodoListPage = observer(() => {
   };
 
   const saveNewTodoTitle = async (title: string) => {
-    if (title !== undefined || title !== '') {
-      if (id === undefined) {
-        const createdId = await todoStore.createNewTodoList(title);
-        navigate(`/todos/${createdId}`);
+    if (isValid) {
+      if (isOnCreatePage) {
+        navigate('/');
+        await todoStore.createNewTodoList(title);
       } else {
         await todoStore.updateTodoTitle(title, id!);
       }
@@ -172,6 +173,7 @@ export const TodoListPage = observer(() => {
             )}
           </Toolbar>
         </AppBar>
+        {todoStore.loading && <LinearProgress />}
         {renderMenu}
       </Box>
 
@@ -206,7 +208,7 @@ export const TodoListPage = observer(() => {
             <div className={styles.scrollable}>{renderTodos()}</div>
           </>
         ) : (
-          <div>This list is empty.</div>
+          <>{isOnCreatePage ? <div>Enter title!</div> : <div>This list is empty.</div>}</>
         )}
 
         {!isOnCreatePage && (

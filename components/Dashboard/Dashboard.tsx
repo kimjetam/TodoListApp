@@ -9,12 +9,13 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { AppBar, Box, Button, IconButton, Toolbar } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export const Dashboard = observer(() => {
-  const store = useTodoStore();
+  const todoStore = useTodoStore();
   const navigate = useNavigate();
 
-  const todoLists = store.todoLists;
+  const todoLists = todoStore.todoLists;
 
   const createList = () => {};
 
@@ -32,6 +33,7 @@ export const Dashboard = observer(() => {
             </IconButton>
           </Toolbar>
         </AppBar>
+        {todoStore.loading && <LinearProgress />}
       </Box>
 
       <div className={styles.container}>
