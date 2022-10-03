@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { TodoListPage } from './components/TodoListPage/TodoListPage';
 import { Dashboard } from './components/Dashboard/Dashboard';
@@ -23,6 +23,7 @@ export const App = observer(() => {
             <Route path="/todos/*" element={<TodoListPage />} />
             <Route path="/todos/:id" element={<TodoListPage />} />
             <Route path="/" element={<Dashboard />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Container>
       </LocalizationProvider>
