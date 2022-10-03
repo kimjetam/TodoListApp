@@ -6,6 +6,8 @@
   .todoLists {
     margin-top: 10px;
     padding-bottom: 5px;
+    overflow-y: auto;
+    max-height: 85vh;
 
     .todoCard {
       padding: 10px;

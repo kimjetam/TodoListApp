@@ -1,5 +1,13 @@
 .buttonsControl {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.dialog {
+  margin-bottom: 400px;
+
+  @media (hover: none) {
+    height: 50vh;
+  }
 }

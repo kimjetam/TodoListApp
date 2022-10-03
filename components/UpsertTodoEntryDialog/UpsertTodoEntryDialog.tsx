@@ -35,7 +35,7 @@ export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubm
   }, [open]);
 
   return (
-    <Dialog onClose={handleClose} open={open} style={{ marginBottom: 400 }}>
+    <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Edit todo item</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
