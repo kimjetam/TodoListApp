@@ -92,6 +92,7 @@ export const TodoListPage = observer(() => {
       </div>
 
       <UpsertTodoEntryDialog
+        isCreating={true}
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         todoItem={{ deadline: null, description: '', isDone: false, title: '' } as TodoItem}

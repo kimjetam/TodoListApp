@@ -13,9 +13,10 @@ interface UpsertTodoEntryDialogProps {
   todoItem?: TodoItem;
   onClose: () => void;
   onSubmit: (todoItem: TodoItem) => void;
+  isCreating: boolean;
 }
 
-export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubmit }: UpsertTodoEntryDialogProps) => {
+export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubmit, isCreating }: UpsertTodoEntryDialogProps) => {
   const handleClose = () => {
     onClose();
   };
@@ -36,7 +37,7 @@ export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubm
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Edit todo item</DialogTitle>
+      <DialogTitle>{isCreating ? 'Create' : 'Edit'} todo item</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>

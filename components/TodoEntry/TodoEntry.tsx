@@ -54,7 +54,13 @@ export const TodoEntry = observer(({ todoItem, todoListId, todoItemIdx }: TodoEn
           </div>
         </form>
       </Card>
-      <UpsertTodoEntryDialog open={open} onClose={() => setOpen(false)} todoItem={todoItem} onSubmit={handleTodoEditSubmit} />
+      <UpsertTodoEntryDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        todoItem={todoItem}
+        onSubmit={handleTodoEditSubmit}
+        isCreating={false}
+      />
     </>
   );
 });

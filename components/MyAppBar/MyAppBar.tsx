@@ -10,7 +10,6 @@ import { useTodoStore } from '../../shared/TodoStoreProvider';
 import { useLocation, useNavigate, useParams, useMatch } from 'react-router-dom';
 import styles from './MyAppBar.scss';
 import { TodoList } from '../../shared/models';
-import { runInAction } from 'mobx';
 import { useFormik } from 'formik';
 import { todoListValidationSchema } from '../../shared/validationSchemas';
 
@@ -44,7 +43,7 @@ export const MyAppBar = observer(() => {
     setIsEditingTitle(false);
   };
 
-  const { values, errors, handleSubmit, handleChange, dirty, isValid, handleBlur } = useFormik({
+  const { values, errors, handleSubmit, handleChange, dirty, isValid, handleBlur, handleReset } = useFormik({
     initialValues: { title: todoList?.title || '' },
     onSubmit: () => saveNewTodoTitle(values.title),
     validationSchema: todoListValidationSchema
@@ -110,7 +109,16 @@ export const MyAppBar = observer(() => {
           )}
           {location.pathname.includes('todos') && (
             <>
-              <IconButton className={styles.backButton} size="large" color="inherit" onClick={() => navigate('/')}>
+              <IconButton
+                className={styles.backButton}
+                size="large"
+                color="inherit"
+                onClick={e => {
+                  handleReset(e);
+                  setIsEditingTitle(false);
+                  navigate('/');
+                }}
+              >
                 <ArrowBackIosIcon />
               </IconButton>
 
