@@ -1,14 +1,14 @@
-import { Card, CardContent, Checkbox, Grid, IconButton, TextareaAutosize, TextField } from '@mui/material';
+import { Card, Checkbox, IconButton } from '@mui/material';
 import { observer } from 'mobx-react';
-import React, { useState } from 'react';
-import { TodoItem } from '../../shared/models';
-import styles from './TodoEntry.scss';
+import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';
-import { useTodoStore } from '../../shared/TodoStoreProvider';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import classNames from 'classnames';
+import { TodoItem } from '../../shared/models';
+import styles from './TodoEntry.scss';
+import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';
+import { useTodoStore } from '../../shared/TodoStoreProvider';
 
 interface TodoEntryProps {
   todoListId: string;
@@ -46,10 +46,10 @@ export const TodoEntry = observer(({ todoItem, todoListId, todoItemIdx }: TodoEn
           </div>
           <div className={classNames(styles.column, styles.end)}>
             <IconButton onClick={() => setOpen(true)}>
-              <EditIcon color="warning"></EditIcon>
+              <EditIcon color="warning" />
             </IconButton>
             <IconButton onClick={handleTodoItemDelete}>
-              <DeleteIcon color="error"></DeleteIcon>
+              <DeleteIcon color="error" />
             </IconButton>
           </div>
         </form>

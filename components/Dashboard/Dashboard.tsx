@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTodoStore } from '../../shared/TodoStoreProvider';
-import styles from './Dashboard.scss';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Grid, IconButton } from '@mui/material';
-
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTodoStore } from '../../shared/TodoStoreProvider';
+import styles from './Dashboard.scss';
 
 export const Dashboard = observer(() => {
   const todoStore = useTodoStore();
@@ -30,7 +29,7 @@ export const Dashboard = observer(() => {
               <Card className={styles.todoCard} onClick={() => navigate(`/todos/${todoList.id}`)}>
                 <CardContent className={styles.content}>
                   <span className={styles.title}>{todoList.title}</span>
-                  <IconButton className={styles.delete} onClick={event => deleteTodoList(todoList.id, event)}>
+                  <IconButton onClick={event => deleteTodoList(todoList.id, event)}>
                     <DeleteIcon />
                   </IconButton>
                 </CardContent>
@@ -39,9 +38,6 @@ export const Dashboard = observer(() => {
           ))}
         </Grid>
       ) : (
-        // <div className={styles.todoLists}>
-
-        // </div>
         <span>no todo lists</span>
       )}
     </div>

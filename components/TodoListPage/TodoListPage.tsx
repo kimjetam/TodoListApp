@@ -1,20 +1,25 @@
 import { FormControl, FormControlLabel, FormLabel, IconButton, InputAdornment, Radio, RadioGroup, TextField } from '@mui/material';
 import { observer } from 'mobx-react';
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useTodoStore } from '../../shared/TodoStoreProvider';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useTodoStore } from '../../shared/TodoStoreProvider';
 import styles from './TodoListPage.scss';
 import { TodoEntry } from '../TodoEntry/TodoEntry';
 import { UpsertTodoEntryDialog } from '../UpsertTodoEntryDialog/UpsertTodoEntryDialog';
 import { TodoItem, TodoList } from '../../shared/models';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export const TodoListPage = observer(() => {
   const { id } = useParams();
   const todoStore = useTodoStore();
+  const navigate = useNavigate();
 
-  const todoList: TodoList | undefined = todoStore.getTodoList(id!);
+  const todoList: TodoList | undefined = todoStore.getTodoList(id);
+
+  useEffect(() => {
+    if (!todoStore.loading && todoList === undefined) navigate('/');
+  }, [todoStore.loading]);
 
   const isOnCreatePage = !id;
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -95,13 +100,13 @@ export const TodoListPage = observer(() => {
 
         {!isOnCreatePage && (
           <IconButton onClick={() => setOpenDialog(true)}>
-            <AddCircleIcon></AddCircleIcon>
+            <AddCircleIcon />
           </IconButton>
         )}
       </div>
 
       <UpsertTodoEntryDialog
-        isCreating={true}
+        isCreating
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         todoItem={{ deadline: null, description: '', isDone: false, title: '' } as TodoItem}

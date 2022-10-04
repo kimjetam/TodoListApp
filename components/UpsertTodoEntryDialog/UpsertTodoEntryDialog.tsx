@@ -1,10 +1,10 @@
-import { Button, Dialog, DialogContent, DialogTitle, TextareaAutosize, TextField } from '@mui/material';
+import { Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { MobileDatePicker } from '@mui/x-date-pickers';
 import { useFormik } from 'formik';
 import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
-import { TodoItem } from '../../shared/models';
 import Grid from '@mui/material/Grid';
+import { TodoItem } from '../../shared/models';
 import styles from './UpsertTodoEntryDialog.scss';
 import { todoItemValidationSchema } from '../../shared/validationSchemas';
 
@@ -81,7 +81,7 @@ export const UpsertTodoEntryDialog = observer(({ open, onClose, todoItem, onSubm
                 onBlur={handleBlur}
                 error={errors.description !== undefined && touched.description}
                 helperText={errors.description}
-              ></TextField>
+              />
             </Grid>
           </Grid>
 

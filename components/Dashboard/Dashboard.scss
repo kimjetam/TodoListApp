@@ -11,9 +11,11 @@
 
     .todoCard {
       padding: 10px;
-      &:hover {
-        cursor: pointer;
-        background-color: $LightBlue;
+      @media (hover: hover) {
+        &:hover {
+          cursor: pointer;
+          background-color: $LightBlue;
+        }
       }
 
       .content {
@@ -25,9 +27,6 @@
         align-items: center;
         .title {
           font-size: 14px;
-        }
-
-        .delete {
         }
       }
     }

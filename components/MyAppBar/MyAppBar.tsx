@@ -1,16 +1,16 @@
 import { AppBar, Box, IconButton, Menu, MenuItem, TextField, Toolbar, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useLocation, useNavigate, useMatch } from 'react-router-dom';
+import { useFormik } from 'formik';
 import { useTodoStore } from '../../shared/TodoStoreProvider';
-import { useLocation, useNavigate, useParams, useMatch } from 'react-router-dom';
 import styles from './MyAppBar.scss';
 import { TodoList } from '../../shared/models';
-import { useFormik } from 'formik';
 import { todoListValidationSchema } from '../../shared/validationSchemas';
 
 export const MyAppBar = observer(() => {
@@ -20,12 +20,12 @@ export const MyAppBar = observer(() => {
 
   const match = useMatch('/todos/:id');
   const id = match?.params?.id;
-  let isCreatingNewTodoList = !id;
+  const isCreatingNewTodoList = !id;
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  let todoList: TodoList | undefined = todoStore.getTodoList(id!);
+  const todoList: TodoList | undefined = todoStore.getTodoList(id!);
 
   const handleMoreOptionsOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

@@ -40,17 +40,28 @@
     "react/no-array-index-key": "warn",
     "import/no-cycle": "off",
     "class-methods-use-this": "warn",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "react/sort-comp": [
+      1,
+      {
+        "order": ["everything-else", "static-methods", "lifecycle", "render"],
+        "groups": {
+          /* ... */
+        }
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
       "typescript": {}
     }
-  },
-  "prettier/prettier": [
-    "error",
-    {
-      "endOfLine": "auto"
-    }
-  ]
+  }
 }
