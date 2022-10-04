@@ -1,5 +1,7 @@
 # Todo app
 
+![Demo](todolistappdemo.gif)
+
 This is an simple app built in React to create todo lists. It supports these use cases:
 
 - create, update and remove a todo list
