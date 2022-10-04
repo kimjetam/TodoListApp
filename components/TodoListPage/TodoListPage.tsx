@@ -14,14 +14,13 @@ export const TodoListPage = observer(() => {
   const { id } = useParams();
   const todoStore = useTodoStore();
   const navigate = useNavigate();
-
+  const isOnCreatePage = !id;
   const todoList: TodoList | undefined = todoStore.getTodoList(id);
 
   useEffect(() => {
-    if (!todoStore.loading && todoList === undefined) navigate('/');
+    if (!todoStore.loading && todoList === undefined && !isOnCreatePage) navigate('/');
   }, [todoStore.loading]);
 
-  const isOnCreatePage = !id;
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const [filterByStatus, setFilterByStatus] = React.useState('all');
@@ -36,15 +35,12 @@ export const TodoListPage = observer(() => {
       return null;
     }
 
-    const result = todoList.todos
-      .filter(todo => {
-        if (filterByStatus === 'all') return true;
-        return filterByStatus === 'done' ? todo.isDone : !todo.isDone;
-      })
-      .filter(
-        todo =>
-          todo.title.toLowerCase().includes(textFilter.toLowerCase()) || todo.description.toLowerCase().includes(textFilter.toLowerCase())
-      );
+    const result = todoList.todos.filter(todo => {
+      const textMatch =
+        todo.title.toLowerCase().includes(textFilter.toLowerCase()) || todo.description.toLowerCase().includes(textFilter.toLowerCase());
+      if (filterByStatus === 'all') return textMatch;
+      return (filterByStatus === 'done' ? todo.isDone : !todo.isDone) && textMatch;
+    });
 
     return result.length === 0 ? (
       <div>No results.</div>

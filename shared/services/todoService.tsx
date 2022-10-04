@@ -15,18 +15,18 @@ export class TodoService {
   }
 
   public async createEmptyTodoList(title: string) {
-    return await axios.post(`${this.baseUrl}/todos`, { title });
+    return axios.post(`${this.baseUrl}/todos`, { title });
   }
 
   public async deleteTodoList(id: string) {
-    return await axios.delete(`${this.baseUrl}/todos/${id}`);
+    return axios.delete(`${this.baseUrl}/todos/${id}`);
   }
 
   public async updateTodoTitle(title: string, id: string) {
-    return await axios.put(`${this.baseUrl}/todos/${id}`, { title });
+    return axios.put(`${this.baseUrl}/todos/${id}`, { title });
   }
 
   public async updateTodosForTodoList(id: string, todos: TodoItem[]) {
-    return await axios.put(`${this.baseUrl}/todos/${id}`, { todos });
+    return axios.put(`${this.baseUrl}/todos/${id}`, { todos });
   }
 }
