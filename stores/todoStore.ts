@@ -1,4 +1,4 @@
-import { AnnotationsMap, configure, makeAutoObservable, runInAction } from 'mobx';
+import { action, AnnotationsMap, configure, makeAutoObservable, runInAction } from 'mobx';
 import { TodoItem, TodoList } from '../shared/models';
 import { TodoService } from '../shared/services/todoService';
 
@@ -21,7 +21,7 @@ export class TodoStore {
 
   constructor() {
     configure({ isolateGlobalState: true, observableRequiresReaction: true, enforceActions: 'observed' });
-    makeAutoObservable(this, { _baseUrl: false } as AnnotationsMap<TodoStore, never>);
+    makeAutoObservable(this, { _baseUrl: false } as AnnotationsMap<TodoStore, never>, { autoBind: true });
 
     this._todoService = new TodoService(this._baseUrl);
 
@@ -33,7 +33,6 @@ export class TodoStore {
   }
 
   private async init() {
-    console.log('init called');
     this._setLoadingProp(true);
     const todos = await this._todoService.getAllTodos();
 

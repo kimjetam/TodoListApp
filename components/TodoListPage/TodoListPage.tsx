@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { action } from 'mobx';
 import { useTodoStore } from '../../shared/TodoStoreProvider';
 import styles from './TodoListPage.scss';
 import { TodoEntry } from '../TodoEntry/TodoEntry';
@@ -17,9 +18,12 @@ export const TodoListPage = observer(() => {
   const isOnCreatePage = !id;
   const todoList: TodoList | undefined = todoStore.getTodoList(id);
 
-  useEffect(() => {
-    if (!todoStore.loading && todoList === undefined && !isOnCreatePage) navigate('/');
-  }, [todoStore.loading]);
+  useEffect(
+    action(() => {
+      if (!todoStore.loading && todoList === undefined && !isOnCreatePage) navigate('/');
+    }),
+    [todoStore.loading]
+  );
 
   const [openDialog, setOpenDialog] = React.useState(false);
 
